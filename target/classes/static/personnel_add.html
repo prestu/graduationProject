@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        添加业主
+    </title>
+    <link rel="stylesheet" href="css/main.css" media="all">
+    <script type="text/javascript" src="lib/loading/okLoading.js"></script>
+</head>
+<body>
+
+<div class="x-body">
+    <form class="layui-form layui-form-pane" action="/person/add" id="add" method="post">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>业主ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="id" autocomplete="off" placeholder="业主ID"
+                                   class="layui-input"  value="">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>业主姓名
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" autocomplete="off" placeholder="输入业主姓名"
+                                   class="layui-input" lay-verify="required" lay-reqtext="成员名称是必填项，岂能为空？" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>性别
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="1" title="男" checked="checked">
+                            <div class="layui-unselect layui-form-radio layui-form-radioed"><i
+                                    class="layui-anim layui-icon layui-anim-scaleSpring"></i>
+                                <div>男</div>
+                            </div>
+                            <input type="radio" name="sex" value="0" title="女">
+                            <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
+                                <div>女</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>小区名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="communityName" autocomplete="off" placeholder="输入小区名称"
+                                   class="layui-input" lay-verify="required" lay-reqtext="小区名称是必填项，岂能为空？" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>楼栋位置
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="houseAddress" autocomplete="off" placeholder="输入楼栋位置"
+                                   class="layui-input" lay-verify="required" lay-reqtext="楼栋位置是必填项，岂能为空？" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>身份证号
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="idcard" autocomplete="off" placeholder="请输入身份证号码"
+                                   class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>联系方式
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="telephone" autocomplete="off" placeholder="请输入11位手机号码"
+                                   class="layui-input"  >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>职业
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="profession" autocomplete="off" placeholder=""
+                                   class="layui-input" value="">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <input type="submit" value="提交">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="lib/layui/layui.js" ></script>
+<script src="js/x-layui.js"></script>
+
+<script>
+    layui.use(['laydate', 'element', 'layer', 'form'], function () {
+        $ = layui.jquery;//jquery
+        lement = layui.element();//面包导航
+        layer = layui.layer;//弹出层
+        form = layui.form();
+        laydate = layui.laydate;//日期插件
+        okLoading.close($);
+        form.render();
+        var start = {
+            min: laydate.now()
+            , max: '2099-06-16 23:59:59'
+            , istoday: false
+            , choose: function (datas) {
+                //end.min = datas; //开始日选好后，重置结束日的最小日期
+                //end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        document.getElementById('LAY_demorange_s').onclick = function () {
+            start.elem = this;
+            laydate(start);
+        };
+
+        //监听提交
+        form.on('submit(add)', function (data) {
+            var member_name = $("input[name='member_name']").val();
+            var data = data.field;
+            if (member_name == "") {
+                layer.msg('成员名称不能为空', {icon: 5, time: 2000});
+                return false;
+            }
+            $.ajax({
+                type: "post",
+                url: "xxx",
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 1) {
+                        layer.msg(data.info, {icon: 6, time: 2000}, function () {
+                            window.parent.location.reload();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        });
+                        return false;
+                    } else {
+                        layer.msg(data.info, {icon: 5, time: 2000});
+                        return false;
+                    }
+                }
+            });
+
+        });
+
+        form.on('select(aihao)', function (data) {
+            communidy();
+        });
+        $(function () {
+            communidy();
+        });
+
+        function communidy() {
+            var communidy = $("#community_id").val();
+            $.ajax({
+                url: "xxx",
+                type: "post",
+                dataType: "json",
+                data: {communidy: communidy},
+                success: function (data) {
+                    //console.log(data);
+                    var dlen = data.length;
+                    var str = '';
+                    for (var i = 0; i < dlen; i++) {
+                        var dt = data[i];
+                        str += '<option value="' + dt.id + '">';
+                        str += dt.home_name;
+                        str += '</option>';
+                    }
+
+                    $("#home_id").html(str);
+                    form.render('select', 'aihao');
+                    //form.render('#building_id');
+
+                }
+            })
+        }
+
+    })
+</script>
+</body>
+</html>
