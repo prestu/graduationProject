@@ -111,7 +111,7 @@ public class FileController {
             }
 
         }
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_PIC_UPLOAD_SUCCESS, saveUrl);
+        return new Result(true, StatusCode.OK, MessageConstant.PIC_UPLOAD_SUCCESS, saveUrl);
     }
 
     /**
@@ -133,7 +133,7 @@ public class FileController {
         if (file.exists()) {//文件是否存在
             boolean delete = file.delete();//删除文件
         }
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_PIC_DEL_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.PIC_DEL_SUCCESS);
     }
 }
 

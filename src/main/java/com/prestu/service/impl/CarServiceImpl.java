@@ -36,7 +36,7 @@ public class CarServiceImpl implements CarService {
             //时间区间
             String start = (String) searchMap.get("startTime");
             String end = (String) searchMap.get("endTime");
-            String name = (String) searchMap.get("name");
+            String carNumber = (String) searchMap.get("carNumber");
             Integer num = (Integer) searchMap.get("pageNum");
             Integer size = (Integer) searchMap.get("pageSize");
             if (StringUtil.isNotEmpty(start)) {
@@ -46,8 +46,8 @@ public class CarServiceImpl implements CarService {
                 criteria.andLessThanOrEqualTo("createTime", end);
             }
             //名称模糊搜索
-            if (StringUtil.isNotEmpty(name)) {
-                criteria.andLike("name", "%" + name + "%");
+            if (StringUtil.isNotEmpty(carNumber)) {
+                criteria.andLike("carNumber", "%" + carNumber + "%");
             }
             if (num != null) {
                 pageNum = num;

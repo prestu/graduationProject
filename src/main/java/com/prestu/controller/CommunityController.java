@@ -8,7 +8,6 @@ import com.prestu.common.StatusCode;
 import com.prestu.pojo.Community;
 import com.prestu.service.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,38 +34,38 @@ public class CommunityController {
     @RequestMapping("/search")
     public PageResult search(@RequestBody(required=false) Map searchMap) {
         Page<Community> page= communityService.search(searchMap);
-        return new PageResult(true, StatusCode.OK, MessageConstant.COMMUNITY_SEARCH_SUCCESS,page.getResult(), (long) page.getTotal());
+        return new PageResult(true, StatusCode.OK, MessageConstant.SEARCH_SUCCESS,page.getResult(), (long) page.getTotal());
     }
 
     @RequestMapping("/add")
     public Result add(@RequestBody Community community) {
         Boolean add = communityService.add(community);
-        return new Result(add, StatusCode.OK, MessageConstant.COMMUNITY_ADD_SUCCESS);
+        return new Result(add, StatusCode.OK, MessageConstant.ADD_SUCCESS);
     }
 
     @RequestMapping("/findById")
     public Result findById(Integer id) {
         Community community = communityService.findById(id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS, community);
+        return new Result(true, StatusCode.OK, MessageConstant.FIND_BY_ID_SUCCESS, community);
     }
 
     @RequestMapping("/update")
     public Result update(@RequestBody Community community) {
         Boolean add = communityService.update(community);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.UPDATE_SUCCESS);
     }
 
     // /community/updateStatus/0/1
     @RequestMapping("/updateStatus/{status}/{id}")
     public Result updateStatus(@PathVariable("status") String status, @PathVariable("id") Integer id) {
         Boolean flag = communityService.updateStatus(status, id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_STATUS_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.UPDATE_STATUS_SUCCESS);
     }
 
     @RequestMapping("/del")
     public Result del(@RequestBody List<Integer> ids) {
         Boolean flag = communityService.del(ids);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_DELETE_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.DELETE_SUCCESS);
     }
 
 }

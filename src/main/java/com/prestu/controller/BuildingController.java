@@ -8,7 +8,6 @@ import com.prestu.common.StatusCode;
 import com.prestu.pojo.Building;
 import com.prestu.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,30 +37,30 @@ public class BuildingController {
     public PageResult search(@RequestBody Map searchMap) {
         Page<Building> page = buildingService.search(searchMap);
 //        List<Building> result = page.getResult();
-        return new PageResult(true, StatusCode.OK, MessageConstant.COMMUNITY_SEARCH_SUCCESS, page.getResult(), page.getTotal());
+        return new PageResult(true, StatusCode.OK, MessageConstant.SEARCH_SUCCESS, page.getResult(), page.getTotal());
     }
 
     @RequestMapping("/add")
-    public Result add(@RequestBody Building community) {
-        Boolean add = buildingService.add(community);
-        return new Result(add, StatusCode.OK, MessageConstant.COMMUNITY_ADD_SUCCESS);
+    public Result add(@RequestBody Building building) {
+        Boolean add = buildingService.add(building);
+        return new Result(add, StatusCode.OK, MessageConstant.ADD_SUCCESS);
     }
 
     @RequestMapping("/findById")
     public Result findById(Integer id) {
         Building community = buildingService.findById(id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS, community);
+        return new Result(true, StatusCode.OK, MessageConstant.FIND_BY_ID_SUCCESS, community);
     }
 
     @RequestMapping("/update")
     public Result update(@RequestBody Building community) {
         Boolean add = buildingService.update(community);
-        return new Result(add, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_SUCCESS);
+        return new Result(add, StatusCode.OK, MessageConstant.UPDATE_SUCCESS);
     }
 
     @RequestMapping("/del")
     public Result del(@RequestBody List<Integer> ids) {
         Boolean flag = buildingService.del(ids);
-        return new Result(flag, StatusCode.OK, MessageConstant.COMMUNITY_DELETE_SUCCESS);
+        return new Result(flag, StatusCode.OK, MessageConstant.DELETE_SUCCESS);
     }
 }

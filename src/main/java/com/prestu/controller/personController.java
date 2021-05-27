@@ -41,7 +41,7 @@ public class personController {
     @RequestMapping("/search")
     public PageResult search(@RequestBody(required=false) Map searchMap) {
         Page<Person> page= personService.search(searchMap);
-        return new PageResult(true, StatusCode.OK, MessageConstant.COMMUNITY_SEARCH_SUCCESS,page.getResult(), (long) page.getTotal());
+        return new PageResult(true, StatusCode.OK, MessageConstant.SEARCH_SUCCESS,page.getResult(), (long) page.getTotal());
     }
     @RequestMapping("/find")
     public Result find() {
@@ -50,27 +50,26 @@ public class personController {
     }
 
     @PostMapping("/add")
-    public void add(Person person) {
+    public Result add(Person person) {
         Boolean add = personService.add(person);
-//        return new Result(add, StatusCode.OK, MessageConstant.COMMUNITY_ADD_SUCCESS);
+        return new Result(add, StatusCode.OK, MessageConstant.ADD_SUCCESS);
     }
 
     @RequestMapping("/findById")
     public Result findById(Integer id) {
         Person person = personService.findById(id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS, person);
+        return new Result(true, StatusCode.OK, MessageConstant.FIND_BY_ID_SUCCESS, person);
     }
 
     @RequestMapping("/update")
     public Result update(@RequestBody Person person) {
         Boolean add = personService.update(person);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_SUCCESS);
+        System.out.println(add);
+        return new Result(true, StatusCode.OK, MessageConstant.UPDATE_SUCCESS);
     }
-
-
     @RequestMapping("/del")
     public Result del(@RequestBody List<Integer> ids) {
         Boolean flag =personService.del(ids);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_DELETE_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.DELETE_SUCCESS);
     }
 }

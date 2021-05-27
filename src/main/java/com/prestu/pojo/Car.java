@@ -15,6 +15,7 @@ public class Car {
     @Id
     private Integer id;
     private String owner;
+    private String brand;
     private String color;
     private String carNumber;
     private String remark;

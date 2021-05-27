@@ -332,7 +332,7 @@
         el: "#addXiaoQu",
         data: {
             title: "添加小区",
-            community: {thumbnail: "", id: ""},
+            community: {id: ""},
             fileList: [],
             rules: {
                 name: [
@@ -370,18 +370,10 @@
             findById() {
                 axios.get("/community/findById?id=" + this.community.id).then((res) => {
                     this.community = res.data.data;
-                    this.fileList.push({url: "http://localhost/estate" + this.community.thumbnail});
                 });
             },
-            handleSuccess(response, file, fileList) {
-                this.community.thumbnail = response.data;
-            },
-
             handlePreview(file) {
                 console.log(file);
-            },
-            handleExceed(files, fileList) {
-                this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
             //文件删除提示
             beforeRemove(file, fileList) {
@@ -390,9 +382,6 @@
             //表达重置
             clearAll() {
                 this.$refs.communityFormRef.resetFields();
-                if (this.fileList.length > 0) {
-                    this.handleRemove();
-                }
             },
             save() {
                 var method = "";
