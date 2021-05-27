@@ -2,35 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>
-        车辆添加
-    </title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
+    <title>车辆添加</title>
     <link rel="stylesheet" href="css/main.css" media="all">
     <script type="text/javascript" src="lib/loading/okLoading.js"></script>
-    <style>
-        .imgs {
-            display: none;
-        }
-
-        .picture {
-            display: none;
-        }
-    </style>
-
 </head>
 <body>
-
 <div class="x-body">
     <form class="layui-form layui-form-pane" action="" id="add">
         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-
-
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
                     <input type="hidden" name="id" value="">
@@ -123,26 +102,6 @@
             var community_id = $('#community_id option:selected').val();//所属栏目ID
             var personnel_id = $('#personnel_id option:selected').val();//所属栏目ID
 
-            if (community_id == "") {
-                layer.msg('所属小区不能为空', {icon: 5, time: 2000});
-                return false;
-            }
-            if (personnel_id == "") {
-                layer.msg('所属成员不能为空', {icon: 5, time: 2000});
-                return false;
-            }
-            if (veh_hphm == "") {
-                layer.msg("车牌号码不能为空！", {icon: 5, time: 2000});
-                return false;
-            }
-            if (veh_color == "") {
-                layer.msg("号牌颜色不能为空！", {icon: 5, time: 2000});
-                return false;
-            }
-            if (image == "") {
-                layer.msg("车辆图片不能为空！", {icon: 5, time: 2000});
-                return false;
-            }
             var data = data.field;
             $.ajax({
                 type: "post",

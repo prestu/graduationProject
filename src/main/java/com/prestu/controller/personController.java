@@ -43,7 +43,6 @@ public class personController {
         Page<Person> page= personService.search(searchMap);
         return new PageResult(true, StatusCode.OK, MessageConstant.COMMUNITY_SEARCH_SUCCESS,page.getResult(), (long) page.getTotal());
     }
-
     @RequestMapping("/find")
     public Result find() {
         List<Person> all = personService.findAll();

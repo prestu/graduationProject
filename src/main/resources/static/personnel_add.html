@@ -1,198 +1,154 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>
-        添加业主
-    </title>
-    <link rel="stylesheet" href="css/main.css" media="all">
-    <script type="text/javascript" src="lib/loading/okLoading.js"></script>
+    <meta charset="utf-8">
+    <title>业主管理</title>
+    <link rel="stylesheet" href="/css/main.css" media="all">
+    <script type="text/javascript" src="/lib/loading/okLoading.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-
-<div class="x-body">
-    <form class="layui-form layui-form-pane" action="/person/add" id="add" method="post">
-        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-            <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>业主ID
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" name="id" autocomplete="off" placeholder="业主ID"
-                                   class="layui-input"  value="">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>业主姓名
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" name="name" autocomplete="off" placeholder="输入业主姓名"
-                                   class="layui-input" lay-verify="required" lay-reqtext="成员名称是必填项，岂能为空？" value="">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>性别
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="radio" name="sex" value="1" title="男" checked="checked">
-                            <div class="layui-unselect layui-form-radio layui-form-radioed"><i
-                                    class="layui-anim layui-icon layui-anim-scaleSpring"></i>
-                                <div>男</div>
-                            </div>
-                            <input type="radio" name="sex" value="0" title="女">
-                            <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i>
-                                <div>女</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>小区名称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" name="communityName" autocomplete="off" placeholder="输入小区名称"
-                                   class="layui-input" lay-verify="required" lay-reqtext="小区名称是必填项，岂能为空？" value="">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>楼栋位置
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" name="houseAddress" autocomplete="off" placeholder="输入楼栋位置"
-                                   class="layui-input" lay-verify="required" lay-reqtext="楼栋位置是必填项，岂能为空？" value="">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>身份证号
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" name="idcard" autocomplete="off" placeholder="请输入身份证号码"
-                                   class="layui-input" >
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>联系方式
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" name="telephone" autocomplete="off" placeholder="请输入11位手机号码"
-                                   class="layui-input"  >
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class='x-red'>*</span>职业
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" name="profession" autocomplete="off" placeholder=""
-                                   class="layui-input" value="">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <input type="submit" value="提交">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+<div id="app">
+    <div class="x-nav">
+            <span class="layui-breadcrumb">
+              <a><cite>首页</cite></a>
+              <a><cite>业主管理</cite></a>
+              <a><cite>{{title}}</cite></a>
+            </span>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+           href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+        <el-form :model="person" :rules="rules" ref="personFormRef" label-width="120px" class="demo-ruleForm">
+            <el-form-item label="业主ID" prop="id">
+                <el-input v-model="person.id"></el-input>
+            </el-form-item>
+            <el-form-item label="业主姓名" prop="username">
+                <el-input v-model="person.username"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="sex">
+                <el-input v-model="person.sex"></el-input>
+            </el-form-item>
+            <el-form-item label="小区名称" prop="communityName">
+                <el-input v-model="person.communityName"></el-input>
+            </el-form-item>
+            <el-form-item label="楼栋位置" prop="houseAddress">
+                <el-input v-model="person.houseAddress"></el-input>
+            </el-form-item>
+            <el-form-item label="身份证号" prop="idcard">
+                <el-input v-model="person.idcard"></el-input>
+            </el-form-item>
+            <el-form-item label="联系方式" prop="telephone">
+                <el-input v-model="person.telephone"></el-input>
+            </el-form-item>
+            <el-form-item label="职业" prop="profession">
+                <el-input v-model="person.profession"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="save()" style="text-align: center">保存</el-button>
+                <el-button @click="clearAll()" style="text-align: center">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
 </div>
-<script src="lib/layui/layui.js" ></script>
-<script src="js/x-layui.js"></script>
-
-<script>
-    layui.use(['laydate', 'element', 'layer', 'form'], function () {
-        $ = layui.jquery;//jquery
-        lement = layui.element();//面包导航
-        layer = layui.layer;//弹出层
-        form = layui.form();
-        laydate = layui.laydate;//日期插件
-        okLoading.close($);
-        form.render();
-        var start = {
-            min: laydate.now()
-            , max: '2099-06-16 23:59:59'
-            , istoday: false
-            , choose: function (datas) {
-                //end.min = datas; //开始日选好后，重置结束日的最小日期
-                //end.start = datas //将结束日的初始值设定为开始日
+<script src="lib/layui/layui.js" charset="utf-8"></script>
+<script src="js/x-layui.js" charset="utf-8"></script>
+<script src="/js/vue.js" charset="utf-8"></script>
+<script src="/js/index.js"></script>
+<script src="/js/axios.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            title: "添加业主",
+            person: {id: ""},
+            fileList: [],
+            rules: {
+                id: [
+                    {required: true, message: '请输入业主ID', trigger: 'blur'},
+                    {max: 50, message: '长度小于20个字符', trigger: 'blur'}
+                ],
+                username: [
+                    {required: true, message: '请输入业主姓名', trigger: 'blur'}
+                ],
+                sex: [
+                    {required: true, message: '请输入性别', trigger: 'blur'}
+                ],
+                communityName: [
+                    {required: true, message: '请输入小区名称', trigger: 'blur'}
+                ],
+                houseAddress: [
+                    {required: true, message: '请输入楼栋位置', trigger: 'blur'}
+                ],
+                idcrad: [
+                    {required: true, message: '请输入身份证号', trigger: 'blur'}
+                ],
+                telephone: [
+                    {required: true, message: '请输入联系方式', trigger: 'blur'}
+                ],
+                profession: [
+                    {required: true, message: '请输入职业', trigger: 'blur'}
+                ],
             }
-        };
-        document.getElementById('LAY_demorange_s').onclick = function () {
-            start.elem = this;
-            laydate(start);
-        };
-
-        //监听提交
-        form.on('submit(add)', function (data) {
-            var member_name = $("input[name='member_name']").val();
-            var data = data.field;
-            if (member_name == "") {
-                layer.msg('成员名称不能为空', {icon: 5, time: 2000});
-                return false;
-            }
-            $.ajax({
-                type: "post",
-                url: "xxx",
-                data: data,
-                dataType: "json",
-                success: function (data) {
-                    if (data.status == 1) {
-                        layer.msg(data.info, {icon: 6, time: 2000}, function () {
-                            window.parent.location.reload();
+        },
+        methods: {
+            findById() {
+                axios.get("/person/findById?id=" + this.person.id).then((res) => {
+                    this.person = res.data.data;
+                    });
+            },
+            //文件删除提示
+            beforeRemove(file) {
+                return this.$confirm(`确定移除 ${file.name}？`);
+            },
+            //表达重置
+            clearAll() {
+                this.$refs.personFormRef.resetFields();
+            },
+            getQueryString(name) {
+                let reg = `(^|&)${name}=([^&]*)(&|$)`
+                let r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            },
+            save() {
+                var method = "";
+                if (this.person.id != null) {
+                    method = "update"
+                } else {
+                    method = "add"
+                }
+                axios.post("/person/" + method, this.person).then((res) => {
+                    if (res.data.flag) {
+                        this.$message({
+                            message: res.data.message,
+                            type: 'success'
+                        });
+                        setTimeout(function () {
                             var index = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(index);
-                        });
-                        return false;
-                    } else {
-                        layer.msg(data.info, {icon: 5, time: 2000});
-                        return false;
+                        }, 1000);
                     }
-                }
+                });
+            },
+        },
+        created: function () {
+            layui.use(['element', 'layer', 'form'], function () {
+                $ = layui.jquery;//jquery
+                lement = layui.element();//面包导航
+                layer = layui.layer;//弹出层
+                form = layui.form();
+                okLoading.close($);
             });
-
-        });
-
-        form.on('select(aihao)', function (data) {
-            communidy();
-        });
-        $(function () {
-            communidy();
-        });
-
-        function communidy() {
-            var communidy = $("#community_id").val();
-            $.ajax({
-                url: "xxx",
-                type: "post",
-                dataType: "json",
-                data: {communidy: communidy},
-                success: function (data) {
-                    //console.log(data);
-                    var dlen = data.length;
-                    var str = '';
-                    for (var i = 0; i < dlen; i++) {
-                        var dt = data[i];
-                        str += '<option value="' + dt.id + '">';
-                        str += dt.home_name;
-                        str += '</option>';
-                    }
-
-                    $("#home_id").html(str);
-                    form.render('select', 'aihao');
-                    //form.render('#building_id');
-
-                }
-            })
+            //获取父页面传递参数，业主ID
+            this.person.id = this.getQueryString("id");
+            //根据小区ID获取业主对象，进行数据回显
+            if (this.person.id != null && this.person.id != '') {
+                this.title = "修改业主信息";
+                this.findById();
+            }
         }
-
-    })
+    });
 </script>
 </body>
 </html>

@@ -29,7 +29,7 @@ public class PersonServiceImpl implements PersonService {
             //时间区间
             String start = (String) searchMap.get("startTime");
             String end = (String) searchMap.get("endTime");
-            String name = (String) searchMap.get("name");
+            String name = (String) searchMap.get("username");
             Integer num = (Integer) searchMap.get("pageNum");
             Integer size = (Integer) searchMap.get("pageSize");
             if (StringUtil.isNotEmpty(start)) {
@@ -40,7 +40,7 @@ public class PersonServiceImpl implements PersonService {
             }
             //名称模糊搜索
             if (StringUtil.isNotEmpty(name)) {
-                criteria.andLike("name", "%" + name + "%");
+                criteria.andLike("username", "%" + name + "%");
             }
             if (num != null) {
                 pageNum = num;

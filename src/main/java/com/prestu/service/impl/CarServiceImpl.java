@@ -24,7 +24,6 @@ public class CarServiceImpl implements CarService {
         List<Car> cars = carMapper.selectAll();
         return cars;
     }
-
     @Override
     public Page<Car> search(Map searchMap) {
         //通用Mapper多条件搜索，标准写法

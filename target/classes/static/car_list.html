@@ -2,19 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>
-        车辆管理
-    </title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
+    <title>车辆管理</title>
     <link rel="stylesheet" href="css/main.css" media="all">
     <script type="text/javascript" src="lib/loading/okLoading.js"></script>
     <link rel="stylesheet" href="css/bootstrap.css">
-    <!--导入ElementUI样式列表，css样式一般都在页面头部-->
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
@@ -58,28 +49,13 @@
                 <input type="checkbox" id="allChecked" :checked="checkedIDs.length===carList.length"
                        @click="allChecked">
             </th>
-            <th>
-                车辆ID
-            </th>
-            <th>
-                车牌号
-            </th>
-            <th>
-                车辆颜色
-            </th>
-            <th>
-                车主姓名
-            </th>
-
-            <th>
-                备注
-            </th>
-            <th>
-                创建时间
-            </th>
-            <th>
-                操作
-            </th>
+            <th>车辆ID</th>
+            <th>车牌号</th>
+            <th>车辆颜色</th>
+            <th>车主姓名</th>
+            <th>备注</th>
+            <th>创建时间</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody id="x-img">
@@ -119,14 +95,9 @@
     </el-pagination>
 </div>
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
-<!--js脚本一般是放在页面尾部-->
-<!--Vue js脚本-->
 <script src="/js/vue.js" charset="utf-8"></script>
-<!--引入ElementUI组件库-->
 <script src="/js/index.js" charset="utf-8"></script>
-<!--引入Axios js脚本-->
 <script src="/js/axios.js" charset="utf-8"></script>
-<!--引入时间插件包Momentjs-->
 <script src="/js/moment.min.js" charset="utf-8"></script>
 <script>
     var app = new Vue({
@@ -231,9 +202,6 @@
                         message: '已取消删除'
                     });
                 });
-            },
-            urlImg(url) {
-                return "http://localhost:8080" + url;
             },
             //全选、全不选方法
             allChecked: function () {
