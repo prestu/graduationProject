@@ -31,7 +31,7 @@
               <div class="form d-flex align-items-center">
                 <div th:text="${msg}" style="color: red; font-size: x-large;position: absolute;top:80px;"></div>
                 <div class="content">
-                  <form method="post" th:action="@{/user/index}" class="form-validate" id="loginFrom">
+                  <form method="post" th:action="@{/}" class="form-validate" id="loginFrom">
 
                     <div class="form-group">
                       <input id="login-username" type="text" name="username" required="required" th:placeholder="#{login.username}"  class="input-material">

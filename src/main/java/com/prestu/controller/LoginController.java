@@ -17,14 +17,13 @@ import java.io.IOException;
  * @author 范成恒
  */
 @Controller
-@RequestMapping("/user")
 public class LoginController {
 
     private String msg;
     @Autowired
     UserService userService;
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String index(@RequestParam(value = "username",required = false) String username, @RequestParam(value = "password" ,required = false) String password, Model model, HttpSession session) {
         String name = username;
         if (name==null) {
@@ -53,7 +52,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping("/register")
+    @RequestMapping("/user/register")
     public String register(User user ,Model model) {
         User byName = userService.findByName(user.getUsername());
         if (byName!=null) {
@@ -66,7 +65,7 @@ public class LoginController {
         model.addAttribute("msg",msg);
         return "login";
     }
-    @RequestMapping("/logout")
+    @RequestMapping("/user/logout")
     public void signOut(HttpServletRequest request ,HttpServletResponse response) throws ServletException, IOException {
         request.getSession().removeAttribute("loginUser");
         request.getRequestDispatcher("/user/login").forward(request,response);

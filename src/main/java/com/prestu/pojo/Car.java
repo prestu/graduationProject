@@ -20,4 +20,5 @@ public class Car {
     private String carNumber;
     private String remark;
     private String createTime;
+    private String telephone;
 }

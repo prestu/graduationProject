@@ -24,11 +24,12 @@ public class MyConfig implements WebMvcConfigurer {
         return new MyLocaleResolver();
     }
 
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/user/login")
-                .excludePathPatterns("/user/index")
+                .excludePathPatterns("/")
                 .excludePathPatterns("/user/register")
                 .excludePathPatterns("/person/login")
                 .excludePathPatterns("/register")

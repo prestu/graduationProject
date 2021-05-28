@@ -32,9 +32,13 @@
             <el-form-item label="车主姓名" prop="owner">
                 <el-input v-model="car.owner"></el-input>
             </el-form-item>
+            <el-form-item label="联系方式" prop="telephone">
+                <el-input v-model="car.telephone"></el-input>
+            </el-form-item>
             <el-form-item label="备注" prop="remark">
                 <el-input v-model="car.remark"></el-input>
             </el-form-item>
+
             <el-form-item>
                 <el-button type="primary" @click="save()" style="text-align: center">保存</el-button>
                 <el-button @click="clearAll()" style="text-align: center">重置</el-button>
@@ -70,6 +74,11 @@
                 brand: [
                     {
                         required: true,message: '请输入车辆品牌',trigger: 'blur'
+                    }
+                ],
+                telephone:[
+                    {
+                        required: true,message: '请输入联系方式',trigger: 'blur'
                     }
                 ]
 

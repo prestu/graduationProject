@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>
-        业主信息管理
+        车位管理
     </title>
     <link rel="stylesheet" href="css/main.css" media="all">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <script type="text/javascript" src="lib/loading/okLoading.js"></script>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="/css/index.css">
@@ -14,8 +15,8 @@
 <div class="x-nav">
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
-              <a><cite>业主信息管理</cite></a>
-              <a><cite>人员管理</cite></a>
+              <a><cite>车位管理</cite></a>
+              <a><cite>车位使用管理</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
        href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon"
@@ -34,74 +35,77 @@
                 :picker-options="pickerOptions">
         </el-date-picker>
         <span class="demonstration">搜索关键字</span>
-        <el-input v-model="searchMap.username" style="width: 20%" placeholder="请输入业主姓名"></el-input>
+        <el-input v-model="searchMap.position" style="width: 20%" placeholder="请输入车位位置"></el-input>
         <el-button type="primary" plain @click="searchMap.pageNum=1;search()">搜索</el-button>
     </div>
     <br>
     <xblock>
         <button class="layui-btn layui-btn-danger" @click="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
-        <button class="layui-btn" @click="admin_add('添加','personnel_add.html','1000','600')"><i class="layui-icon">&#xe608;</i>添加
+        <button class="layui-btn" @click="admin_add('添加','parking_add.html','1000','600')"><i class="layui-icon">&#xe608;</i>添加
         </button>
-         <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">{{personList.length}}</span> 条</span>
+        <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">{{parkingList.length}}</span> 条</span>
     </xblock>
-    <div style=" overflow:scroll; height:400px;">
-    <table class="layui-table">
-        <thead>
-        <tr>
-            <th>
-                <input type="checkbox" id="allChecked" :checked="checkedIDs.length===personList.length"
-                       @click="allChecked">
-            </th>
-            <th>业主ID</th>
-            <th>业主姓名</th>
-            <th>小区名称</th>
-            <th>楼栋位置</th>
-            <th>身份证号</th>
-            <th>联系方式</th>
-            <th>职业</th>
-            <th>性别</th>
-            <th>创建时间</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody id="x-img">
-        <tr v-for="(person,index) in personList">
-            <td>
-                <input type="checkbox" :id="'id'+person.id" :value="person.id" v-model="checkedIDs">
-            </td>
-            <td>{{person.id}}</td>
-            <td>{{person.username}}</td>
-            <td>{{person.communityName}}</td>
-            <td>{{person.houseAddress}}</td>
-            <td>{{person.idcard}}</td>
-            <td>{{person.telephone}}</td>
-            <td>{{person.profession}}</td>
-            <td>{{person.sex}}</td>
-            <td>{{dateFormat(person.createTime)}}</td>
-            <td class="td-manage">
-                <a title="编辑" href="javascript:;"
-                   @click="person_edit('编辑','personnel_add.html',person.id,'1000','600')"
-                   class="ml-5" style="text-decoration:none">
-                    <i class="layui-icon">&#xe642;</i>
-                </a>
-                <a title="删除" href="javascript:;" @click="del_one(person.id)"
-                   style="text-decoration:none">
-                    <i class="layui-icon">&#xe640;</i>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <el-pagination
-            background
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :page-size="searchMap.pageSize"
-            layout="prev, pager, next,sizes"
-            :page-sizes="[2,10,20]"
-            style="text-align: right;"
-            :total="total">
-    </el-pagination>
+    <div style=" overflow:scroll;">
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===parkingList.length"
+                           @click="allChecked">
+                </th>
+                <th>车位ID</th>
+                <th>所属小区</th>
+                <th>车位编号</th>
+                <th>车位位置</th>
+                <th>车牌号码</th>
+                <th>车辆所有人</th>
+                <th>联系方式</th>
+                <th>使用性质</th>
+                <th>开始时间</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="x-img">
+            <tr v-for="(parking,index) in parkingList">
+                <td>
+                    <input type="checkbox" :id="'id'+parking.id" :value="parking.id" v-model="checkedIDs">
+                </td>
+                <td>{{parking.id}}</td>
+                <td>{{parking.communityName}}</td>
+                <td>{{parking.code}}</td>
+                <td>{{parking.position}}</td>
+                <td>{{parking.carNumber}}</td>
+                <td>{{parking.ownerName}}</td>
+                <td>{{parking.telephone}}</td>
+                <td>{{parking.status}}</td>
+                <td>{{parking.startTime}}</td>
+                <td>{{parking.createTime}}</td>
+                <!--                <td>{{dateFormat(person.createTime)}}</td>-->
+                <td class="td-manage">
+                    <a title="编辑" href="javascript:;"
+                       @click="parking_edit('编辑','parking_add.html',parking.id,'1000','600')"
+                       class="ml-5" style="text-decoration:none">
+                        <i class="layui-icon">&#xe642;</i>
+                    </a>
+                    <a title="删除" href="javascript:;" @click="del_one(parking.id)"
+                       style="text-decoration:none">
+                        <i class="layui-icon">&#xe640;</i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <el-pagination
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :page-size="searchMap.pageSize"
+                layout="prev, pager, next,sizes"
+                :page-sizes="[2,10,20]"
+                style="text-align: right;"
+                :total="total">
+        </el-pagination>
     </div>
 </div>
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
@@ -114,9 +118,9 @@
         el: "#app",//声明当前Vue在页面的作用域
         data: {
             checkedIDs: [],
-            personList: [],
+            parkingList: [],
             total: 10,
-            searchMap: {"startTime": "", "endTime": "", "username": "", "pageNum": 1, "pageSize": 2},
+            searchMap: {"startTime": "", "endTime": "", "position": "", "pageNum": 1, "pageSize": 2},
             selectDate: ['', ''],
             pickerOptions: {
                 shortcuts: [{
@@ -149,8 +153,8 @@
         methods: {
             //分页条件查询
             search() {
-                axios.post("/person/search", this.searchMap).then((res) => {
-                    app.personList = res.data.data;
+                axios.post("/parking/search", this.searchMap).then((res) => {
+                    app.parkingList = res.data.data;
                     app.total = res.data.total;
                 });
             },
@@ -164,7 +168,7 @@
                     //把选中的ID封装到集合中
                     this.checkedIDs.push(id);
                     //执行删除操作
-                    axios.post("/person/del", this.checkedIDs).then((res) => {
+                    axios.post("/parking/del", this.checkedIDs).then((res) => {
                         if (res.data.flag) {
                             this.$message({
                                 type: 'success',
@@ -193,7 +197,7 @@
                     type: 'warning'
                 }).then(() => {
                     //执行删除操作
-                    axios.post("/person/del", this.checkedIDs).then((res) => {
+                    axios.post("/parking/del", this.checkedIDs).then((res) => {
                         if (res.data.flag) {
                             this.$message({
                                 type: 'success',
@@ -213,19 +217,16 @@
                     });
                 });
             },
-            urlImg(url) {
-                return "http://localhost:8080" + url;
-            },
             //全选、全不选方法
             allChecked: function () {
-                if (this.checkedIDs.length === this.personList.length) {
+                if (this.checkedIDs.length === this.parkingList.length) {
                     // 全不选
                     this.checkedIDs = [];
 
                 } else {
                     this.checkedIDs = [];
                     // 全选
-                    this.personList.forEach((item) => {
+                    this.parkingList.forEach((item) => {
                         this.checkedIDs.push(item.id); // 与checkbox的value统一
                     })
                 }
@@ -273,7 +274,7 @@
             },
 
             //编辑
-            person_edit(title, url, id, w, h) {
+            parking_edit(title, url, id, w, h) {
                 url = url + "?id=" + id;
                 this.x_admin_show(title, url, w, h);
             },
