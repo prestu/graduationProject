@@ -1,18 +1,19 @@
 package com.prestu.pojo;
 
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
+/**
+ * @author 范成恒
+ */
 @Table(name="tb_parking")
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
-public class Parking implements Serializable {
+public class Parking{
     @Id
     private Integer id;
     private String code;
@@ -22,7 +23,6 @@ public class Parking implements Serializable {
     private String carNumber;
     private String ownerName;
     private String status;
-    private String startTime;
     private String createTime;
 
 }

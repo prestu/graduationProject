@@ -65,7 +65,7 @@ public class CommunityController {
     @RequestMapping("/del")
     public Result del(@RequestBody List<Integer> ids) {
         Boolean flag = communityService.del(ids);
-        return new Result(true, StatusCode.OK, MessageConstant.DELETE_SUCCESS);
+        return new Result(flag, StatusCode.OK, MessageConstant.DELETE_SUCCESS);
     }
 
 }

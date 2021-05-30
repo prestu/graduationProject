@@ -36,7 +36,8 @@
 
             <ul class="layui-nav" lay-filter="">
                 <li class="layui-nav-item" id="time"
-                    style="margin-right: 50px;font-weight: 300;font-size: 16px;color: #fff;position: absolute;left: -250px;top: 0"></li>
+                    style="margin-right: 50px;font-weight: 300;font-size: 16px;color: #fff;position: absolute;left: -250px;top: 0">
+                </li>
                 <li class="layui-nav-item"><img th:src="@{/images/tx.jpg}" class="layui-circle"  width="35px" height="35px"
                     alt="">
                 </li>
@@ -179,14 +180,14 @@
         var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
         var myMonth = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
         var myToday = myDate.getDate(); //获取当前日(1-31)
-        var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+        var myWeek = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
         var myHour = myDate.getHours(); //获取当前小时数(0-23)
         var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
         var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
         var week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
         var nowTime;
 
-        nowTime = myYear + '-' + fillZero(myMonth) + '-' + fillZero(myToday) + '&nbsp;&nbsp;' + week[myDay] + '&nbsp;&nbsp;' + fillZero(myHour) + ':' + fillZero(myMinute) + ':' + fillZero(mySecond);
+        nowTime = myYear + '-' + fillZero(myMonth) + '-' + fillZero(myToday) + '&nbsp;&nbsp;' + week[myWeek] + '&nbsp;&nbsp;' + fillZero(myHour) + ':' + fillZero(myMinute) + ':' + fillZero(mySecond);
         $('#time').html(nowTime);
     };
 

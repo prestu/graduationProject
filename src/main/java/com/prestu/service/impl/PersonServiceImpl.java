@@ -17,6 +17,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     PersonMapper personMapper;
+    String sub = "00:00:00";
+    String pre = "23:59:59";
     @Override
     public Page<Person> search(Map searchMap) {
         //通用Mapper多条件搜索，标准写法
@@ -32,6 +34,12 @@ public class PersonServiceImpl implements PersonService {
             String name = (String) searchMap.get("username");
             Integer num = (Integer) searchMap.get("pageNum");
             Integer size = (Integer) searchMap.get("pageSize");
+            if (!"".equals(start)) {
+                start =start.substring(0,11)+sub;
+            }
+            if (!"".equals(end)) {
+                end =end.substring(0,11)+pre;
+            }
             if (StringUtil.isNotEmpty(start)) {
                 criteria.andGreaterThanOrEqualTo("createTime", start);
             }

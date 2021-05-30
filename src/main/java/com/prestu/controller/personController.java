@@ -50,7 +50,7 @@ public class personController {
     }
 
     @PostMapping("/add")
-    public Result add(Person person) {
+    public Result add(@RequestBody(required = false) Person person) {
         Boolean add = personService.add(person);
         return new Result(add, StatusCode.OK, MessageConstant.ADD_SUCCESS);
     }

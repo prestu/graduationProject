@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * @author 范成恒
@@ -16,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ToString
 @Table(name = "tb_community")
-public class Community implements Serializable {
+public class Community{
     @Id
     private Integer id;
     private String code;

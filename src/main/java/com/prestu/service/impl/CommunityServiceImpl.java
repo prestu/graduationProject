@@ -35,6 +35,8 @@ public class CommunityServiceImpl implements CommunityService {
         //1.初始化分页条件
         int pageNum = 1;
         int pageSize = 2;
+        String sub = "00:00:00";
+        String pre = "23:59:59";
         if (searchMap != null) {
             Example.Criteria criteria = example.createCriteria();//创建查询条件
             //时间区间
@@ -43,6 +45,12 @@ public class CommunityServiceImpl implements CommunityService {
             String name = (String) searchMap.get("name");
             Integer num = (Integer) searchMap.get("pageNum");
             Integer size = (Integer) searchMap.get("pageSize");
+            if (!"".equals(start)) {
+                start =start.substring(0,11)+sub;
+            }
+            if (!"".equals(end)) {
+                end =end.substring(0,11)+pre;
+            }
             if (StringUtil.isNotEmpty(start)) {
                 criteria.andGreaterThanOrEqualTo("createTime", start);
             }

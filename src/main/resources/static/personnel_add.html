@@ -58,7 +58,7 @@
         el: "#app",
         data: {
             title: "添加业主",
-            person: {id: ""},
+            person: {id: "",password:""},
             fileList: [],
             rules: {
                 username: [
@@ -73,7 +73,7 @@
                 houseAddress: [
                     {required: true, message: '请输入楼栋位置', trigger: 'blur'}
                 ],
-                idcrad: [
+                idcard: [
                     {required: true, message: '请输入身份证号', trigger: 'blur'}
                 ],
                 telephone: [
@@ -109,7 +109,8 @@
                 if (this.person.id != null) {
                     method = "update"
                 } else {
-                    method = "add"
+                    method = "add";
+                    this.person.password = "123456";
                 }
                 axios.post("/person/" + method, this.person).then((res) => {
                     if (res.data.flag) {

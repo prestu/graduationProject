@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author 范成恒
+ */
 @Table(name = "tb_car")
 @AllArgsConstructor
 @NoArgsConstructor

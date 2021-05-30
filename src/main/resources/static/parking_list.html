@@ -61,8 +61,7 @@
                 <th>车辆所有人</th>
                 <th>联系方式</th>
                 <th>使用性质</th>
-                <th>开始时间</th>
-                <th>创建时间</th>
+                <th>停车时间</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -77,9 +76,11 @@
                 <td>{{parking.position}}</td>
                 <td>{{parking.carNumber}}</td>
                 <td>{{parking.ownerName}}</td>
-                <td>{{parking.telephone}}</td>
-                <td>{{parking.status}}</td>
-                <td>{{parking.startTime}}</td>
+                <td>{{parking.telephone}}</td></td>
+                <td class="td-status">
+                    <span class="layui-btn layui-btn-normal " onclick="start(this,'4',1)">{{parking.status}}</span>
+                </td>
+<!--                <td>{{parking.status}}</td>-->
                 <td>{{parking.createTime}}</td>
                 <!--                <td>{{dateFormat(person.createTime)}}</td>-->
                 <td class="td-manage">
