@@ -7,14 +7,10 @@ import com.prestu.common.StatusCode;
 import com.prestu.pojo.Parking;
 import com.prestu.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-
 @RestController
 @RequestMapping("/parking")
 public class ParkingController {
@@ -22,7 +18,6 @@ public class ParkingController {
     ParkingService parkingService;
     @RequestMapping("/search")
     public Result search(@RequestBody(required=false) Map searchMap) {
-//        System.out.println(searchMap);
         Page<Parking> search = parkingService.search(searchMap);
 
         for (Parking parking : search) {

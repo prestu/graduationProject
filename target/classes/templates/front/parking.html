@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>停车位</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../front/css/main.css" media="all">
+    <link rel="stylesheet" href="../front/css/index.css">
+<!--    <link rel="stylesheet" href="../front/css/bootstrap.css">-->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container bg-light">
+    <h3 class="nav-link" style="left: 70px;position: absolute">小区服务</h3>
+    <nav class="nav nav-pills nav-justified" style="top: 10px;position: absolute">
+        <a class="nav-link" href="../front/index.html">首页</a>
+        <a class="nav-link active" href="../front/parking.html">停车位</a>
+        <a class="nav-link " href="../front/complaint.html">投诉</a>
+        <a class="nav-link" href="../front/.html">采购</a>
+        <a class="nav-link" href="../front/repair.html">报修</a>
+        <a class="nav-link" href="../front/activity.html">活动</a>
+        <a class="nav-link" href="../front/personnel.html">个人信息</a>
+    </nav>
+</div>
+<div class="x-body" id="app" style="top: 50px;position: absolute">
+    <div style=" overflow:scroll;">
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <th>车位ID</th>
+                <th>所属小区</th>
+                <th>车位编号</th>
+                <th>车位位置</th>
+                <th>车牌号码</th>
+                <th>车辆所有人</th>
+                <th>联系方式</th>
+                <th>使用性质</th>
+                <th>停车时间</th>
+            </tr>
+            </thead>
+            <tbody id="x-img">
+            <tr v-for="(parking,index) in parkingList">
+                <td>{{parking.id}}</td>
+                <td>{{parking.communityName}}</td>
+                <td>{{parking.code}}</td>
+                <td>{{parking.position}}</td>
+                <td>{{parking.carNumber}}</td>
+                <td>{{parking.ownerName}}</td>
+                <td>{{parking.telephone}}</td>
+                <td class="td-status">
+                    <span class="layui-btn layui-btn-normal " onclick="start(this,'4',1)">{{parking.status}}</span>
+                </td>
+                <td>{{parking.createTime}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="../front/js/layui.js" charset="utf-8"></script>
+<script src="../front/js/vue.js" charset="utf-8"></script>
+<script src="../front/js/index.js" charset="utf-8"></script>
+<script src="../front/js/axios.js" charset="utf-8"></script>
+<script src="../front/js/moment.min.js" charset="utf-8"></script>
+<script>
+    var app = new Vue({
+        el: "#app",//声明当前Vue在页面的作用域
+        data: {
+            parkingList: []
+        },
+        methods: {
+            //分页条件查询
+            search() {
+                axios.get("http://localhost:8080/parking/search").then((res) => {
+                    app.parkingList = res.data.data;
+                    app.total = res.data.total;
+                });
+            },
+        },
+        created: function () {//Vue生命周期方法，加载页面时会执行该方法
+            this.search();
+        }
+    });
+</script>
+</body>
+</html>

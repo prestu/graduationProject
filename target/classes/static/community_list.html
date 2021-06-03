@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
+<!--    <meta name="renderer" content="webkit">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+<!--    <meta name="apple-mobile-web-app-status-bar-style" content="black">-->
+<!--    <meta name="apple-mobile-web-app-capable" content="yes">-->
+<!--    <meta name="format-detection" content="telephone=no">-->
     <link rel="stylesheet" href="css/main.css" media="all">
     <script type="text/javascript" src="lib/loading/okLoading.js"></script>
     <!--导入ElementUI样式列表，css样式一般都在页面头部-->
@@ -52,61 +52,61 @@
             <button class="layui-btn layui-btn-danger" @click="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button>
             <button type="button" class="layui-btn" data-toggle="modal" data-target="#myModal" ><i class="layui-icon">&#xe608;</i>添加
             </button>
-            <!-- <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">2</span> 条</span> -->
+            <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">{{communityList.length}}</span> 条</span>
         </div>
 
         <div style=" overflow:scroll; height:400px;">
             <table class="layui-table">
-            <thead>
-            <tr>
-                <th>
-                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===communityList.length"
-                           @click="allChecked">
-                </th>
-                <th>ID</th>
-                <th>小区编号</th>
-                <th>小区名称</th>
-                <th>坐落地址</th>
-                <th>占地面积（m2）</th>
-                <th>总栋数</th>
-                <th>总户数</th>
-                <th>绿化率（%）</th>
-                <th>开发商名称</th>
-                <th>物业公司名称</th>
-                <th>创建时间</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody id="x-img" >
-            <tr v-for="(community,index) in communityList">
-                <td>
-                    <input type="checkbox" :id="'id'+community.id" :value="community.id" v-model="checkedIDs">
-                </td>
-                <td>{{community.id}}</td>
-                <td>{{community.code}}</td>
-                <td>{{community.name}}</td>
-                <td>{{community.address}}</td>
-                <td>{{community.area}}</td>
-                <td>{{community.totalBuildings}}</td>
-                <td>{{community.totalHouseholds}}</td>
-                <td>{{community.greeningRate}}</td>
-                <td>{{community.developer}}</td>
-                <td>{{community.estateCompany}}</td>
-                <td>{{dateFormat(community.createTime)}}</td>
-                <td class="td-manage">
-                    <a title="编辑" href="javascript:;"
-                       @click="community_edit('编辑','communityadd.html',community.id,'1000','600')"
-                       class="ml-5" style="text-decoration:none">
-                        <i class="layui-icon">&#xe642;</i>
-                    </a>
-                    <a title="删除" href="javascript:;" @click="del_one(community.id)"
-                       style="text-decoration:none">
-                        <i class="layui-icon">&#xe640;</i>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="allChecked" :checked="checkedIDs.length===communityList.length"
+                                   @click="allChecked">
+                        </th>
+                        <th>ID</th>
+                        <th>小区编号</th>
+                        <th>小区名称</th>
+                        <th>坐落地址</th>
+                        <th>占地面积（m2）</th>
+                        <th>总栋数</th>
+                        <th>总户数</th>
+                        <th>绿化率（%）</th>
+                        <th>开发商名称</th>
+                        <th>物业公司名称</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="x-img" >
+                    <tr v-for="(community,index) in communityList">
+                        <td>
+                            <input type="checkbox" :id="'id'+community.id" :value="community.id" v-model="checkedIDs">
+                        </td>
+                        <td>{{community.id}}</td>
+                        <td>{{community.code}}</td>
+                        <td>{{community.name}}</td>
+                        <td>{{community.address}}</td>
+                        <td>{{community.area}}</td>
+                        <td>{{community.totalBuildings}}</td>
+                        <td>{{community.totalHouseholds}}</td>
+                        <td>{{community.greeningRate}}</td>
+                        <td>{{community.developer}}</td>
+                        <td>{{community.estateCompany}}</td>
+                        <td>{{dateFormat(community.createTime)}}</td>
+                        <td class="td-manage">
+                            <a title="编辑" href="javascript:;"
+                               @click="community_edit('编辑','communityadd.html',community.id,'1000','600')"
+                               class="ml-5" style="text-decoration:none">
+                                <i class="layui-icon">&#xe642;</i>
+                            </a>
+                            <a title="删除" href="javascript:;" @click="del_one(community.id)"
+                               style="text-decoration:none">
+                                <i class="layui-icon">&#xe640;</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <el-pagination
                     background
                     @size-change="handleSizeChange"

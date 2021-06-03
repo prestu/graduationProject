@@ -28,7 +28,7 @@ public class ParkingServiceImpl implements ParkingService {
         Example example = new Example(Parking.class);//指定查询的表tb_car
         //1.初始化分页条件
         int pageNum = 1;
-        int pageSize = 2;
+        int pageSize = 10;
         String sub = "00:00:00";
         String pre = "23:59:59";
         if (searchMap != null) {

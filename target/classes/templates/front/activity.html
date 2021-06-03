@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>活动</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../front/css/main.css" media="all">
+    <link rel="stylesheet" href="../front/css/index.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container bg-light">
+    <h3 class="nav-link" style="left: 70px;position: absolute; font-size: 25px;">小区服务</h3>
+    <nav class="nav nav-pills nav-justified" style="top: 7px;position: absolute">
+        <a class="nav-link" href="../front/index.html">首页</a>
+        <a class="nav-link " href="../front/parking.html">停车位</a>
+        <a class="nav-link " href="../front/complaint.html">投诉</a>
+        <a class="nav-link" href="../front/.html">采购</a>
+        <a class="nav-link" href="../front/repair.html">报修</a>
+        <a class="nav-link active" href="../front/activity.html">活动</a>
+        <a class="nav-link" href="../front/personnel.html">个人信息</a>
+    </nav>
+</div>
+<div class="x-body" id="app" style="top: 50px;position: absolute">
+    <div style=" overflow:scroll; height:400px;">
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th>活动ID</th>
+                    <th>所属小区</th>
+                    <th>活动标题</th>
+                    <th>活动地址</th>
+                    <th>活动发起人</th>
+                    <th>活动内容</th>
+                    <th>活动开始时间</th>
+                    <th>活动结束时间</th>
+                    <th>活动创建时间</th>
+                </tr>
+            </thead>
+            <tbody id="x-img">
+                <tr v-for="(activity,index) in activityList">
+                    <td>{{activity.id}}</td>
+                    <td>{{activity.communityName}}</td>
+                    <td>{{activity.title}}</td>
+                    <td>{{activity.address}}</td>
+                    <td>{{activity.organizer}}</td>
+                    <td>
+                        <button class="layui-btn" data-toggle="modal" :data-target="'#modal-'+activity.id">
+                            活动详情
+                        </button>
+                    </td>
+                    <td>{{activity.startTime}}</td>
+                    <td>{{activity.endTime}}</td>
+                    <td>{{activity.createTime}}</td>
+                    <td>
+                        <!-- Modal -->
+                        <div class="modal fade" :id="'modal-'+activity.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{activity.detail}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="../front/js/vue.js" charset="utf-8"></script>
+<script src="../front/js/index.js" charset="utf-8"></script>
+<script src="../front/js/axios.js" charset="utf-8"></script>
+<script src="../front/js/moment.min.js" charset="utf-8"></script>
+<script src="../front/js/layui.js" charset="utf-8"></script>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            activityList: []
+        },
+        methods: {
+            //分页条件查询
+            search() {
+                axios.get("http://localhost:8080/activity/search", this.searchMap).then((res) => {
+                    app.activityList = res.data.data;
+                });
+            },
+            },
+        created: function () {//Vue生命周期方法，加载页面时会执行该方法
+            this.search();
+        }
+    });
+</script>
+</body>
+</html>

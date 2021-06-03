@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="../front/css/main.css" media="all">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div class="container bg-light">
+    <h3 class="nav-link" style="left: 70px;position: absolute">小区服务</h3>
+    <nav class="nav nav-pills nav-justified" style="top: 8px;position: absolute">
+        <a class="nav-link" href="../front/index.html">首页</a>
+        <a class="nav-link" href="../front/parking.html">停车位</a>
+        <a class="nav-link " href="../front/complaint.html">投诉</a>
+        <a class="nav-link" href="../front/.html">采购</a>
+        <a class="nav-link" href="../front/repair.html">报修</a>
+        <a class="nav-link" href="../front/activity.html">活动</a>
+        <a class="nav-link active" href="../front/personnel.html">个人信息</a>
+    </nav>
+
+</div>
+<div id="app" style="top: 70px;position: absolute">
+    <div class="x-nav">
+    <div class="x-body">
+        <el-form :model="community" :rules="rules" ref="communityFormRef" label-width="120px" class="demo-ruleForm">
+            <el-form-item label="小区名称" prop="name">
+                <el-input v-model="community.name"></el-input>
+            </el-form-item>
+            <el-form-item label="小区编号" prop="code">
+                <el-input v-model="community.code"></el-input>
+            </el-form-item>
+            <el-form-item label="坐落地址" prop="address">
+                <el-input v-model="community.address"></el-input>
+            </el-form-item>
+            <el-form-item label="占地面积" prop="area">
+                <el-input v-model="community.area"></el-input>
+            </el-form-item>
+            <el-form-item label="开发商名称" prop="developer">
+                <el-input v-model="community.developer"></el-input>
+            </el-form-item>
+            <el-form-item label="物业公司名称" prop="estateCompany">
+                <el-input v-model="community.estateCompany"></el-input>
+            </el-form-item>
+            <el-form-item label="绿化率" prop="greeningRate">
+                <el-input v-model="community.greeningRate"></el-input>
+            </el-form-item>
+            <el-form-item label="总栋数" prop="totalBuildings">
+                <el-input v-model="community.totalBuildings"></el-input>
+            </el-form-item>
+            <el-form-item label="总户数" prop="totalHouseholds">
+                <el-input v-model="community.totalHouseholds"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="save()" style="text-align: center">保存</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            title: "添加小区",
+            community: {id: ""},
+            fileList: [],
+            rules: {
+                name: [
+                    {required: true, message: '请输入小区名称', trigger: 'blur'},
+                    {max: 50, message: '长度小于50个字符', trigger: 'blur'}
+                ],
+                code: [
+                    {required: true, message: '请输入小区名称', trigger: 'blur'},
+                    {min: 11, max: 20, message: '长度必须大于11、小于20个字符', trigger: 'blur'}
+                ],
+                address: [
+                    {required: true, message: '请输入小区地址', trigger: 'blur'}
+                ],
+                area: [
+                    {required: true, message: '请输入占地面积', trigger: 'blur'}
+                ],
+                developer: [
+                    {required: true, message: '请输入开发商名称', trigger: 'blur'}
+                ],
+                estateCompany: [
+                    {required: true, message: '请输入物业公司名称', trigger: 'blur'}
+                ],
+                greeningRate: [
+                    {required: true, message: '请输入绿化面积', trigger: 'blur'},
+                ],
+                totalBuildings: [
+                    {required: true, message: '请输入楼栋总数', trigger: 'blur'}
+                ],
+                totalHouseholds: [
+                    {required: true, message: '请输入住户总数', trigger: 'blur'}
+                ]
+            }
+        },
+        methods: {
+            findById() {
+                axios.get("/community/findById?id=" + this.community.id).then((res) => {
+                    this.community = res.data.data;
+                });
+            },
+            save() {
+                axios.post("/community/update", this.community).then((res) => {
+                    if (res.data.flag) {
+                        this.$message({
+                            message: res.data.message,
+                            type: 'success'
+                        });
+                        setTimeout(function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }, 1000);
+                    }
+                });
+            },
+            getQueryString(name) {
+                let reg = `(^|&)${name}=([^&]*)(&|$)`
+                let r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        },
+        created: function () {
+            layui.use(['element', 'layer', 'form'], function () {
+                $ = layui.jquery;//jquery
+                lement = layui.element();//面包导航
+                layer = layui.layer;//弹出层
+                form = layui.form();
+                okLoading.close($);
+            });
+            //获取父页面传递参数，小区ID
+            this.community.id = this.getQueryString("id");
+            //根据小区ID获取小区对象，进行数据回显
+            if (this.community.id != null && this.community.id != '') {
+                this.title = "修改小区";
+                this.findById();
+            }
+        }
+    });
+</script>
+</body>
+</html>
